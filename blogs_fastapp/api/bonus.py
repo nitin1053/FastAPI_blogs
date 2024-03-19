@@ -1,4 +1,4 @@
-# api/bonus.py
+
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Depends  # Import Depends
 from typing import List
 from pydantic import BaseModel
@@ -9,12 +9,12 @@ from .auth import get_current_user
 
 router = APIRouter()
 
-# Define additional models if needed
+
 class Comment(BaseModel):
     text: str
     user_id: str
 
-# Define additional routes and functionalities
+
 @router.post("/blogs/{post_id}/comment/", response_model=Comment)
 async def add_comment(post_id: str, comment: Comment, current_user: User = Depends(get_current_user)):
     # Check if the blog post exists
@@ -22,13 +22,11 @@ async def add_comment(post_id: str, comment: Comment, current_user: User = Depen
     if not existing_blog:
         raise HTTPException(status_code=404, detail="Blog post not found")
 
-    # Add the comment to the blog post
     comment_data = comment.dict()
     comment_data["user_id"] = current_user.id
     db.blog_posts.update_one({"_id": post_id}, {"$push": {"comments": comment_data}})
 
-    # Perform background tasks if needed (e.g., send email notification)
-    # background_tasks.add_task(send_notification, post_id, comment)
+    
 
     return comment
 

@@ -17,7 +17,7 @@ async def dashboard(
     # Fetch all blogs matching user's followed tags
     blogs = db.blog_posts.find({"tags": {"$in": user_tags}})
     
-    # Implement sorting logic to prioritize blogs with tags the user likes
+    
     sorted_blogs = sorted(blogs, key=lambda x: len(set(x['tags']) & set(user_tags)), reverse=True)
     
     # Pagination

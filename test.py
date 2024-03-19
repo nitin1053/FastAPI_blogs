@@ -2,7 +2,7 @@
 import pytest
 import requests
 
-BASE_URL = "http://localhost:8000"  # Update with your API base URL
+BASE_URL = "http://localhost:8080"  
 
 def test_create_blog():
     payload = {"title": "Test Blog", "content": "Test content", "tags": ["test"]}
@@ -16,7 +16,7 @@ def test_get_all_blogs():
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
-# Add more test functions for other endpoints
+
 
 if __name__ == "__main__":
     pytest.main()
