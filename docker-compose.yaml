@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: sh -c "uvicorn blogs_fastapp.main:app --reload"
+    ports:
+      - "8080:80"
